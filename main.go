@@ -9,6 +9,7 @@ func main() {
 	initConfig := config.CloudflareConfig{
 		URL:           config.BaseURL,
 		Authorization: config.Authorization,
+		Token:         config.Token,
 	}
 
 	cloudflareAPI := cloudflare.RequestCloudflareImpl{
@@ -17,4 +18,5 @@ func main() {
 
 	cloudflareAPI.Verify()
 
+	cloudflareAPI.ListZones()
 }
