@@ -51,3 +51,26 @@ func (c *RequestCloudflareImpl) Verify() {
 	fmt.Println("Success:", data.Success)
 	fmt.Println("ID:", data.Result.ID)
 }
+
+func (c *RequestCloudflareImpl) ListZones() {
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/zones", c.Config.URL), nil)
+
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", c.Config.Authorization)
+
+	if err != nil {
+		fmt.Println("Failed to create http request instance ", err)
+		return
+	}
+
+	res, err := http.DefaultClient.Do(req)
+
+	if err != nil {
+		fmt.Println("Failed to http calls ", err)
+		return
+	}
+
+	body, _ := io.ReadAll(res.Body)
+
+	fmt.Println(string(body))
+}
